@@ -26,13 +26,13 @@ button.copiar { font: inherit; font-weight: 700; padding: 8px 14px; border-radiu
     <p class="cuando">Bloque 2. La IA te da la tabla de conexiones y el código; tú cableas a mano.</p>
     <button class="copiar" data-t="t-lab2">Copiar prompt</button>
     <pre id="t-lab2">Rol: eres diseñador de prototipos IoT con ESP32 en el simulador Wokwi.
-Contexto: Uso el simulador Wokwi (wokwi.com) con la placa &quot;wokwi-esp32-devkit-v1&quot;. Sus pines se llaman 3V3, VIN, GND.1, GND.2, D2, D4, D5, D12, D13, D14, D15, D18, D19, D21, D22, D23, D25, D26, D27, D32, D33, D34, D35, TX0 y RX0. Ya tengo un DHT22 conectado: VCC a 3V3, GND a GND.1 y SDA a D15. Voy a agregar un LED RGB &quot;wokwi-rgb-led&quot; de cátodo común (pines R, G, B y COM; COM va a GND y cada color se prende con HIGH) y tres resistencias &quot;wokwi-resistor&quot; (pines 1 y 2).
+Contexto: Uso el simulador Wokwi (wokwi.com) con la placa &quot;wokwi-esp32-devkit-v1&quot;. Sus pines se llaman 3V3, VIN, GND.1, GND.2, D2, D4, D5, D12, D13, D14, D15, D18, D19, D21, D22, D23, D25, D26, D27, D32, D33, D34, D35, TX0 y RX0. Ya tengo un DHT22 conectado: VCC a 3V3, GND a GND.1 y SDA a D15. Ya tengo puesto, sin cables, un LED RGB &quot;wokwi-rgb-led&quot; de cátodo común (pines R, G, B y COM; COM va a GND y cada color se prende con HIGH); voy a agregar tres resistencias &quot;wokwi-resistor&quot; (pines 1 y 2).
 Tarea: un semáforo de confort del aula: verde si la temperatura es menor de 24 °C, amarillo entre 24 y 28 °C, rojo si pasa de 28 °C.
 Formato: (1) una tabla de conexiones con columnas pieza, pin de la pieza, pin del ESP32 y tipo de señal; (2) el sketch completo de Arduino, comentado en español, que además escriba la temperatura y el color en el monitor serie.
 Restricciones: una resistencia de 220 ohmios en serie con cada color; no cambies el pin del DHT22; usa la librería &quot;DHT sensor library for ESPx&quot; (DHTesp.h); no uses WiFi; Usa millis() en lugar de delay() para los tiempos. Los umbrales van como constantes con nombre y un comentario.</pre>
   </section>
   <section class="prompt" id="lab3">
-    <h2><i style="background:var(--b2)"></i>Laboratorio 3 · Depurar con la IA</h2>
+    <h2><i style="background:var(--b2)"></i>Laboratorio 3 · Proyecto con fallas</h2>
     <p class="cuando">Bloque 2. Llena los corchetes antes de enviar.</p>
     <button class="copiar" data-t="t-lab3">Copiar prompt</button>
     <pre id="t-lab3">Rol: eres un docente que enseña a depurar programas de Arduino para ESP32 en el simulador Wokwi.
