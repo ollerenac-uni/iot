@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompts · IoT con Arduino</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700&family=IBM+Plex+Mono&display=swap">
+<link rel="stylesheet" href="estilo.css">
+<style>
+main { max-width: 760px; }
+.prompt { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.cuando { color: var(--muted); margin: 0 0 10px; font-size: .95rem; }
+pre { white-space: pre-wrap; font: 13.5px/1.5 "IBM Plex Mono", monospace; background: var(--bg); border-radius: 8px; padding: 12px; margin: 10px 0 0; }
+button.copiar { font: inherit; font-weight: 700; padding: 8px 14px; border-radius: 8px; border: 0; background: var(--accent); color: #fff; cursor: pointer; }
+.aviso { background: var(--surface); border-left: 6px solid var(--b1); padding: 10px 14px; border-radius: 8px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Prompts de los laboratorios</h1>
+  <p class="sub">Fórmula RCTFR: Rol, Contexto, Tarea, Formato y Restricciones. Copia, cambia lo que está entre corchetes y pégalo en un chat nuevo de Gemini.</p>
+  <nav class="tabs"><a href="index.html">Enlaces</a><a href="prompts.html" aria-current="page">Prompts</a><a href="prototipos.html">Prototipos</a></nav>
+  <p class="aviso"><b>Lo que entregue la IA se revisa antes de pegarlo:</b> pines que existen y no se repiten, analógicos en D32 a D35, cada pieza con 3V3 o VIN y GND, resistencia en cada LED, las mismas conexiones en la tabla y en el sketch, librerías que existen. Y se prueba: mueve el deslizador a un valor que debería activar y a uno que no.</p>
+  <section class="prompt" id="lab2">
+    <h2><i style="background:var(--b2)"></i>Laboratorio 2 · Semáforo de confort</h2>
+    <p class="cuando">Bloque 2. La IA te da la tabla de conexiones y el código; tú cableas a mano.</p>
+    <button class="copiar" data-t="t-lab2">Copiar prompt</button>
+    <pre id="t-lab2">Rol: eres diseñador de prototipos IoT con ESP32 en el simulador Wokwi.
+Contexto: Uso el simulador Wokwi (wokwi.com) con la placa &quot;wokwi-esp32-devkit-v1&quot;. Sus pines se llaman 3V3, VIN, GND.1, GND.2, D2, D4, D5, D12, D13, D14, D15, D18, D19, D21, D22, D23, D25, D26, D27, D32, D33, D34, D35, TX0 y RX0. Ya tengo un DHT22 conectado: VCC a 3V3, GND a GND.1 y SDA a D15. Voy a agregar un LED RGB &quot;wokwi-rgb-led&quot; de cátodo común (pines R, G, B y COM; COM va a GND y cada color se prende con HIGH) y tres resistencias &quot;wokwi-resistor&quot; (pines 1 y 2).
+Tarea: un semáforo de confort del aula: verde si la temperatura es menor de 24 °C, amarillo entre 24 y 28 °C, rojo si pasa de 28 °C.
+Formato: (1) una tabla de conexiones con columnas pieza, pin de la pieza, pin del ESP32 y tipo de señal; (2) el sketch completo de Arduino, comentado en español, que además escriba la temperatura y el color en el monitor serie.
+Restricciones: una resistencia de 220 ohmios en serie con cada color; no cambies el pin del DHT22; usa la librería &quot;DHT sensor library for ESPx&quot; (DHTesp.h); no uses WiFi; Usa millis() en lugar de delay() para los tiempos. Los umbrales van como constantes con nombre y un comentario.</pre>
+  </section>
+  <section class="prompt" id="lab3">
+    <h2><i style="background:var(--b2)"></i>Laboratorio 3 · Depurar con la IA</h2>
+    <p class="cuando">Bloque 2. Llena los corchetes antes de enviar.</p>
+    <button class="copiar" data-t="t-lab3">Copiar prompt</button>
+    <pre id="t-lab3">Rol: eres un docente que enseña a depurar programas de Arduino para ESP32 en el simulador Wokwi.
+Contexto: este es mi sketch: [PEGA AQUÍ EL SKETCH]. Estas son mis conexiones: [PEGA AQUÍ EL diagram.json O DESCRIBE LOS CABLES].
+Tarea: lo que debería pasar: [QUÉ ESPERABAS]. Lo que pasa: [QUÉ VES]. Mensaje de error, si hay: [PEGA EL TEXTO EN ROJO].
+Formato: primero explica en tres líneas la causa más probable; luego dame solo las líneas que hay que cambiar, con el antes y el después.
+Restricciones: no reescribas todo el programa; no cambies los pines si la falla no está en ellos; si la falla está en un cable, dime qué cable mover y a dónde.</pre>
+  </section>
+  <section class="prompt" id="lab4">
+    <h2><i style="background:var(--b3)"></i>Laboratorio 4 · Estación ambiental</h2>
+    <p class="cuando">Bloque 3. La IA te da la tabla de conexiones y el código; tú cableas a mano y revisas la tabla con la tarjeta del prototipo.</p>
+    <button class="copiar" data-t="t-lab4">Copiar prompt</button>
+    <pre id="t-lab4">Rol: eres diseñador de prototipos IoT con ESP32 en el simulador Wokwi.
+Contexto: Uso el simulador Wokwi (wokwi.com) con la placa &quot;wokwi-esp32-devkit-v1&quot;. Sus pines se llaman 3V3, VIN, GND.1, GND.2, D2, D4, D5, D12, D13, D14, D15, D18, D19, D21, D22, D23, D25, D26, D27, D32, D33, D34, D35, TX0 y RX0. Piezas: un DHT22 &quot;wokwi-dht22&quot; (pines VCC, SDA, NC, GND), un sensor de presión &quot;board-bmp180&quot; (pines VCC, GND, SCL, SDA) y una fotorresistencia &quot;wokwi-photoresistor-sensor&quot; (pines VCC, GND, DO, AO).
+Tarea: una estación ambiental del aula que mida temperatura, humedad, presión y luz, y las envíe a ThingSpeak cada 20 segundos.
+Formato: (1) una tabla de conexiones con columnas pieza, pin de la pieza, pin del ESP32 y tipo de señal (digital, analógica o I2C); (2) el sketch completo de Arduino, comentado en español, que escriba cada lectura en el monitor serie.
+Restricciones: el BMP180 va por I2C en D21 (SDA) y D22 (SCL); la fotorresistencia, por su pin AO, solo en D32, D33, D34 o D35; todas las piezas a 3V3 y GND; librerías &quot;DHT sensor library for ESPx&quot; (DHTesp.h) y &quot;Adafruit BMP085 Library&quot; (Adafruit_BMP085.h); la luz en porcentaje con map(analogRead(pin), 4095, 0, 0, 100), porque en Wokwi el valor sube con la oscuridad; la presión en hPa; en ThingSpeak field1 = temperatura, field2 = humedad, field3 = presión, field4 = luz; Usa millis() en lugar de delay() para los tiempos. Los umbrales van como constantes con nombre y un comentario. Para WiFi y ThingSpeak incluye &lt;WiFi.h&gt; y &lt;HTTPClient.h&gt;, declara const char* CLAVE_ESCRITURA = &quot;PEGA_AQUI_TU_WRITE_API_KEY&quot;; y usa exactamente estas dos funciones, sin cambiarlas:
+void conectarWiFi() {
+  WiFi.begin(&quot;Wokwi-GUEST&quot;, &quot;&quot;, 6);
+  Serial.print(&quot;Conectando a WiFi&quot;);
+  while (WiFi.status() != WL_CONNECTED) { delay(250); Serial.print(&quot;.&quot;); }
+  Serial.println(&quot; OK&quot;);
+}
+void enviar(String campos) {
+  HTTPClient http;
+  http.begin(String(&quot;http://api.thingspeak.com/update?api_key=&quot;) + CLAVE_ESCRITURA + campos);
+  int codigo = http.GET();
+  Serial.printf(&quot;ThingSpeak: HTTP %d, respuesta %s\n&quot;, codigo, http.getString().c_str());
+  http.end();
+}</pre>
+  </section>
+  <section class="prompt" id="lab5">
+    <h2><i style="background:var(--b3)"></i>Laboratorio 5 · Control de temperatura</h2>
+    <p class="cuando">Bloque 3. Cambia los dos umbrales por los tuyos: deben ser distintos de 28 y 26.</p>
+    <button class="copiar" data-t="t-lab5">Copiar prompt</button>
+    <pre id="t-lab5">Rol: eres diseñador de prototipos IoT con ESP32 en el simulador Wokwi.
+Contexto: Uso el simulador Wokwi (wokwi.com) con la placa &quot;wokwi-esp32-devkit-v1&quot;. Sus pines se llaman 3V3, VIN, GND.1, GND.2, D2, D4, D5, D12, D13, D14, D15, D18, D19, D21, D22, D23, D25, D26, D27, D32, D33, D34, D35, TX0 y RX0. Piezas: un DHT22 &quot;wokwi-dht22&quot; (pines VCC, SDA, NC, GND), un módulo relé &quot;wokwi-relay-module&quot; (pines VCC, GND, IN, COM, NO, NC), un LED &quot;wokwi-led&quot; (pines A, C) que representa un ventilador y una resistencia &quot;wokwi-resistor&quot; (pines 1, 2).
+Tarea: un control de temperatura con histéresis: el relé enciende el ventilador cuando la temperatura pasa de [TU UMBRAL ALTO] °C y lo apaga recién cuando baja de [TU UMBRAL BAJO] °C. Envía la temperatura y el estado del relé a ThingSpeak.
+Formato: (1) una tabla de conexiones con columnas pieza, pin de la pieza, pin del ESP32 y tipo de señal; (2) el sketch completo de Arduino, comentado en español, que escriba la temperatura y el estado del ventilador en el monitor serie.
+Restricciones: el relé se alimenta de VIN y GND; el LED y su resistencia van del lado de carga del relé, entre COM y NO, con COM a 3V3; el relé se activa con HIGH en IN; decide cada 2 segundos y envía cada 20 segundos; en ThingSpeak field1 = temperatura y field2 = relé (1 encendido, 0 apagado); librería &quot;DHT sensor library for ESPx&quot; (DHTesp.h); Usa millis() en lugar de delay() para los tiempos. Los umbrales van como constantes con nombre y un comentario. Para WiFi y ThingSpeak incluye &lt;WiFi.h&gt; y &lt;HTTPClient.h&gt;, declara const char* CLAVE_ESCRITURA = &quot;PEGA_AQUI_TU_WRITE_API_KEY&quot;; y usa exactamente estas dos funciones, sin cambiarlas:
+void conectarWiFi() {
+  WiFi.begin(&quot;Wokwi-GUEST&quot;, &quot;&quot;, 6);
+  Serial.print(&quot;Conectando a WiFi&quot;);
+  while (WiFi.status() != WL_CONNECTED) { delay(250); Serial.print(&quot;.&quot;); }
+  Serial.println(&quot; OK&quot;);
+}
+void enviar(String campos) {
+  HTTPClient http;
+  http.begin(String(&quot;http://api.thingspeak.com/update?api_key=&quot;) + CLAVE_ESCRITURA + campos);
+  int codigo = http.GET();
+  Serial.printf(&quot;ThingSpeak: HTTP %d, respuesta %s\n&quot;, codigo, http.getString().c_str());
+  http.end();
+}</pre>
+  </section>
+  <section class="prompt" id="lab6">
+    <h2><i style="background:var(--b4)"></i>Laboratorio 6 · Iluminación inteligente</h2>
+    <p class="cuando">Bloque 4. Aquí la IA también genera el diagrama: lo pegas en la pestaña diagram.json y lo revisas con la lista.</p>
+    <button class="copiar" data-t="t-lab6">Copiar prompt</button>
+    <pre id="t-lab6">Rol: eres diseñador de prototipos IoT con ESP32 en el simulador Wokwi.
+Contexto: Uso el simulador Wokwi (wokwi.com) con la placa &quot;wokwi-esp32-devkit-v1&quot;. Sus pines se llaman 3V3, VIN, GND.1, GND.2, D2, D4, D5, D12, D13, D14, D15, D18, D19, D21, D22, D23, D25, D26, D27, D32, D33, D34, D35, TX0 y RX0. Piezas: una fotorresistencia &quot;wokwi-photoresistor-sensor&quot; (pines VCC, GND, DO, AO), un sensor de movimiento &quot;wokwi-pir-motion-sensor&quot; (pines VCC, OUT, GND), un LED &quot;wokwi-led&quot; (pines A, C) y una resistencia &quot;wokwi-resistor&quot; (pines 1, 2).
+Tarea: una luz de pasillo inteligente: el LED se prende solo si está oscuro (luz menor de [TU UMBRAL] %) y además hay movimiento. Envía la luz, el movimiento y el estado de la luz a ThingSpeak.
+Formato: (1) una tabla de conexiones con columnas pieza, pin de la pieza, pin del ESP32 y tipo de señal; (2) el archivo diagram.json completo de Wokwi; (3) el sketch completo de Arduino, comentado en español.
+Restricciones: en el diagram.json la placa es exactamente &quot;wokwi-esp32-devkit-v1&quot; con id &quot;esp&quot;, e incluye las conexiones &quot;esp:TX0&quot; a &quot;$serialMonitor:RX&quot; y &quot;esp:RX0&quot; a &quot;$serialMonitor:TX&quot;; la fotorresistencia, por AO, solo en D32, D33, D34 o D35; resistencia de 220 ohmios en serie con el LED; todas las piezas a 3V3 y GND; la luz en porcentaje con map(analogRead(pin), 4095, 0, 0, 100), porque en Wokwi el valor sube con la oscuridad; en ThingSpeak field1 = luz, field2 = movimiento (1/0), field3 = luz encendida (1/0); envía cada 20 segundos y además apenas cambia la luz, si pasaron 15 segundos desde el último envío; Usa millis() en lugar de delay() para los tiempos. Los umbrales van como constantes con nombre y un comentario. Para WiFi y ThingSpeak incluye &lt;WiFi.h&gt; y &lt;HTTPClient.h&gt;, declara const char* CLAVE_ESCRITURA = &quot;PEGA_AQUI_TU_WRITE_API_KEY&quot;; y usa exactamente estas dos funciones, sin cambiarlas:
+void conectarWiFi() {
+  WiFi.begin(&quot;Wokwi-GUEST&quot;, &quot;&quot;, 6);
+  Serial.print(&quot;Conectando a WiFi&quot;);
+  while (WiFi.status() != WL_CONNECTED) { delay(250); Serial.print(&quot;.&quot;); }
+  Serial.println(&quot; OK&quot;);
+}
+void enviar(String campos) {
+  HTTPClient http;
+  http.begin(String(&quot;http://api.thingspeak.com/update?api_key=&quot;) + CLAVE_ESCRITURA + campos);
+  int codigo = http.GET();
+  Serial.printf(&quot;ThingSpeak: HTTP %d, respuesta %s\n&quot;, codigo, http.getString().c_str());
+  http.end();
+}</pre>
+  </section>
+  <section class="prompt" id="lab7">
+    <h2><i style="background:var(--b4)"></i>Laboratorio 7 · Sistema de alerta</h2>
+    <p class="cuando">Bloque 4. Elige tu sensor; el ejemplo usa el ultrasónico del tanque. La IA también genera el diagrama.</p>
+    <button class="copiar" data-t="t-lab7">Copiar prompt</button>
+    <pre id="t-lab7">Rol: eres diseñador de prototipos IoT con ESP32 en el simulador Wokwi.
+Contexto: Uso el simulador Wokwi (wokwi.com) con la placa &quot;wokwi-esp32-devkit-v1&quot;. Sus pines se llaman 3V3, VIN, GND.1, GND.2, D2, D4, D5, D12, D13, D14, D15, D18, D19, D21, D22, D23, D25, D26, D27, D32, D33, D34, D35, TX0 y RX0. Piezas: un sensor ultrasónico &quot;wokwi-hc-sr04&quot; (pines VCC, TRIG, ECHO, GND) en la tapa de un tanque de [ALTURA DE TU TANQUE] cm, un zumbador &quot;wokwi-buzzer&quot; (pines 1 negativo y 2 positivo), un LED rojo &quot;wokwi-led&quot; (pines A, C) y una resistencia &quot;wokwi-resistor&quot; (pines 1, 2).
+Tarea: un sistema de alerta del tanque de agua del colegio: calcula el nivel de agua en porcentaje; si baja de [TU NIVEL MÍNIMO] %, suenan el zumbador y el LED (alerta local) y se envía alerta = 1 a ThingSpeak (alerta remota).
+Formato: (1) una tabla de conexiones con columnas pieza, pin de la pieza, pin del ESP32 y tipo de señal; (2) el archivo diagram.json completo de Wokwi; (3) el sketch completo de Arduino, comentado en español.
+Restricciones: en el diagram.json la placa es exactamente &quot;wokwi-esp32-devkit-v1&quot; con id &quot;esp&quot;, e incluye las conexiones &quot;esp:TX0&quot; a &quot;$serialMonitor:RX&quot; y &quot;esp:RX0&quot; a &quot;$serialMonitor:TX&quot;; el ultrasónico se alimenta de VIN; la distancia en cm es la duración del eco en microsegundos dividida entre 58; el zumbador suena con tone(pin, 1000) y se calla con noTone(pin); resistencia de 220 ohmios en serie con el LED; en ThingSpeak field1 = nivel de agua (%) y field2 = alerta (1/0); envía cada 20 segundos y además apenas empieza una alerta, si pasaron 15 segundos desde el último envío; Usa millis() en lugar de delay() para los tiempos. Los umbrales van como constantes con nombre y un comentario. Para WiFi y ThingSpeak incluye &lt;WiFi.h&gt; y &lt;HTTPClient.h&gt;, declara const char* CLAVE_ESCRITURA = &quot;PEGA_AQUI_TU_WRITE_API_KEY&quot;; y usa exactamente estas dos funciones, sin cambiarlas:
+void conectarWiFi() {
+  WiFi.begin(&quot;Wokwi-GUEST&quot;, &quot;&quot;, 6);
+  Serial.print(&quot;Conectando a WiFi&quot;);
+  while (WiFi.status() != WL_CONNECTED) { delay(250); Serial.print(&quot;.&quot;); }
+  Serial.println(&quot; OK&quot;);
+}
+void enviar(String campos) {
+  HTTPClient http;
+  http.begin(String(&quot;http://api.thingspeak.com/update?api_key=&quot;) + CLAVE_ESCRITURA + campos);
+  int codigo = http.GET();
+  Serial.printf(&quot;ThingSpeak: HTTP %d, respuesta %s\n&quot;, codigo, http.getString().c_str());
+  http.end();
+}</pre>
+  </section>
+  <footer>Facilitador: Oscar Llerena</footer>
+</main>
+<script>
+for (const b of document.querySelectorAll("button.copiar")) b.addEventListener("click", async () => {
+  await navigator.clipboard.writeText(document.getElementById(b.dataset.t).innerText);
+  const t = b.textContent; b.textContent = "Copiado ✓"; setTimeout(() => b.textContent = t, 1500);
+});
+</script>
+</body>
+</html>

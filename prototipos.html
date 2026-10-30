@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototipos · IoT con Arduino</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700&display=swap">
+<link rel="stylesheet" href="estilo.css">
+<style>
+main { max-width: 760px; }
+.tarjeta { background: var(--surface); border: 1px solid var(--line); border-top: 6px solid var(--c); border-radius: 12px; padding: 14px 16px; }
+.tarjeta img { width: 100%; border-radius: 8px; border: 1px solid var(--line); background: #e8e8e8; min-height: 40px; }
+table { width: 100%; border-collapse: collapse; font-size: .92rem; margin: 10px 0; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 400; }
+.campos, .nota { font-size: .92rem; margin: 6px 0; }
+.nota { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Los cuatro prototipos</h1>
+  <p class="sub">Piezas, conexiones y campos de ThingSpeak de cada prototipo. Los campos van en este orden: así se califica.</p>
+  <nav class="tabs"><a href="index.html">Enlaces</a><a href="prompts.html">Prompts</a><a href="prototipos.html" aria-current="page">Prototipos</a></nav>
+  <section class="tarjeta" id="p1" style="--c:var(--b3)">
+    <h2><i style="background:var(--b3)"></i>Prototipo 1 · Estación ambiental</h2>
+    <p><b>Problema:</b> ¿Cómo cambian el calor, la humedad y la luz del aula durante el día?</p>
+    <img src="img/p1.png" alt="Diagrama de Wokwi del Prototipo 1 · Estación ambiental" loading="lazy">
+    <table><tr><th>Pieza</th><th>Conexión</th><th>Señal</th></tr><tr><td>DHT22</td><td>VCC → 3V3 · GND → GND.1 · SDA → D15</td><td>digital</td></tr><tr><td>BMP180</td><td>VCC → 3V3 · GND → GND.1 · SDA → D21 · SCL → D22</td><td>I2C</td></tr><tr><td>Fotorresistencia (LDR)</td><td>VCC → 3V3 · GND → GND.1 · AO → D34</td><td>analógica</td></tr></table>
+    <p class="campos"><b>ThingSpeak</b> · Estación CL#-####: field1 temperatura (°C) · field2 humedad (%) · field3 presión (hPa) · field4 luz (%)</p>
+    <p class="nota">Librerías: DHT sensor library for ESPx · Adafruit BMP085 Library</p>
+    <div class="links">
+      <span class="btn" data-url="">Proyecto de partida<small>Piezas puestas, sin cables</small></span>
+      <span class="btn" data-url="">Proyecto de rescate<small>Cableado; falta la lógica de decisión</small></span>
+    </div>
+  </section>
+  <section class="tarjeta" id="p2" style="--c:var(--b3)">
+    <h2><i style="background:var(--b3)"></i>Prototipo 2 · Control de temperatura</h2>
+    <p><b>Problema:</b> Ventilar el aula o el invernadero escolar cuando hace calor.</p>
+    <img src="img/p2.png" alt="Diagrama de Wokwi del Prototipo 2 · Control de temperatura" loading="lazy">
+    <table><tr><th>Pieza</th><th>Conexión</th><th>Señal</th></tr><tr><td>DHT22</td><td>VCC → 3V3 · GND → GND.1 · SDA → D15</td><td>digital</td></tr><tr><td>Módulo relé</td><td>VCC → VIN · GND → GND.2 · IN → D26</td><td>digital</td></tr><tr><td>Carga del relé</td><td>COM → 3V3 · NO → resistencia 220 Ω → LED “Ventilador” (A); C → GND.1</td><td>lado de carga</td></tr></table>
+    <p class="campos"><b>ThingSpeak</b> · Control CL#-####: field1 temperatura (°C) · field2 relé (1 encendido, 0 apagado)</p>
+    <p class="nota">Modelo: enciende sobre 28 °C, apaga bajo 26 °C. Tus umbrales deben ser otros.</p>
+    <div class="links">
+      <span class="btn" data-url="">Proyecto de partida<small>Piezas puestas, sin cables</small></span>
+      <span class="btn" data-url="">Proyecto de rescate<small>Cableado; falta la lógica de decisión</small></span>
+    </div>
+  </section>
+  <section class="tarjeta" id="p3" style="--c:var(--b4)">
+    <h2><i style="background:var(--b4)"></i>Prototipo 3 · Iluminación inteligente</h2>
+    <p><b>Problema:</b> Luz del pasillo que se prende solo de noche y si pasa alguien.</p>
+    <img src="img/p3.png" alt="Diagrama de Wokwi del Prototipo 3 · Iluminación inteligente" loading="lazy">
+    <table><tr><th>Pieza</th><th>Conexión</th><th>Señal</th></tr><tr><td>Fotorresistencia (LDR)</td><td>VCC → 3V3 · GND → GND.1 · AO → D34</td><td>analógica</td></tr><tr><td>PIR</td><td>VCC → 3V3 · GND → GND.1 · OUT → D27</td><td>digital</td></tr><tr><td>LED</td><td>D4 → resistencia 220 Ω → A; C → GND.1</td><td>digital</td></tr></table>
+    <p class="campos"><b>ThingSpeak</b> · Iluminación CL#-####: field1 luz (%) · field2 movimiento (1/0) · field3 luz encendida (1/0)</p>
+    <p class="nota">Movimiento en Wokwi: clic en el PIR → “Simulate motion”. Modelo: oscuro bajo 30 % de luz.</p>
+    <div class="links">
+      <span class="btn" data-url="">Proyecto de partida<small>Piezas puestas, sin cables</small></span>
+      <span class="btn" data-url="">Proyecto de rescate<small>Cableado; falta la lógica de decisión</small></span>
+    </div>
+  </section>
+  <section class="tarjeta" id="p4" style="--c:var(--b4)">
+    <h2><i style="background:var(--b4)"></i>Prototipo 4 · Sistema de alerta</h2>
+    <p><b>Problema:</b> El tanque de agua del colegio se queda vacío sin aviso (opciones: gas en el laboratorio, ingreso fuera de horario).</p>
+    <img src="img/p4.png" alt="Diagrama de Wokwi del Prototipo 4 · Sistema de alerta" loading="lazy">
+    <table><tr><th>Pieza</th><th>Conexión</th><th>Señal</th></tr><tr><td>Ultrasónico HC-SR04</td><td>VCC → VIN · GND → GND.2 · TRIG → D5 · ECHO → D18</td><td>digital</td></tr><tr><td>Zumbador</td><td>2 (+) → D25 · 1 (−) → GND.2</td><td>digital</td></tr><tr><td>LED rojo</td><td>D4 → resistencia 220 Ω → A; C → GND.1</td><td>digital</td></tr></table>
+    <p class="campos"><b>ThingSpeak</b> · Alerta CL#-####: field1 valor del sensor (nivel de agua %) · field2 alerta (1/0)</p>
+    <p class="nota">Modelo: tanque de 100 cm, alerta bajo 20 %. El sensor de gas MQ2 solo responde a su deslizador.</p>
+    <div class="links">
+      <span class="btn" data-url="">Proyecto de partida<small>Piezas puestas, sin cables</small></span>
+      <span class="btn" data-url="">Proyecto de rescate<small>Cableado; falta la lógica de decisión</small></span>
+    </div>
+  </section>
+  <footer>Facilitador: Oscar Llerena</footer>
+</main>
+<script>
+// Para activar un proyecto: pon su URL en data-url (por ejemplo data-url="https://wokwi.com/projects/...").
+for (const s of document.querySelectorAll("span.btn[data-url]")) if (s.dataset.url) {
+  const a = document.createElement("a"); a.className = "btn"; a.href = s.dataset.url; a.target = "_blank"; a.rel = "noopener";
+  a.innerHTML = s.innerHTML; s.replaceWith(a);
+}
+</script>
+</body>
+</html>
